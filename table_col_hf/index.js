@@ -46,8 +46,35 @@ tr.appendChild(th3)
 th1.innerText = "Fizika területe";
 th2.innerText = "Időszak";
 th3.innerText = "Képviselők";
+th3.colSpan = 2;
 
 //Tbody
 const tbody = document.createElement("tbody");
 
 table.appendChild(tbody)
+
+for(let i = 0; i < arr.length; i++){
+    const tr = document.createElement("tr");
+    const td1 = document.createElement("td");
+    const td2 = document.createElement("td");
+    const td3 = document.createElement("td");
+
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+
+    td1.innerText = arr[i].theme;
+    td2.innerText = arr[i].time;
+    td3.innerText = arr[i].scientist1;
+    
+    if(!arr[i].scientist2){
+        td3.colSpan = 2;
+    }
+    else{
+        const td4 = document.createElement("td");
+        td4.innerText = arr[i].scientist2;
+        tr.appendChild(td4);
+    }  
+
+    tbody.appendChild(tr);
+};
