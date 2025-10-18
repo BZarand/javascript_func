@@ -33,20 +33,15 @@ document.body.appendChild(table);
 //Thead 
 const thead = document.createElement("thead");
 const tr = document.createElement("tr");
-const th1 = document.createElement("th");
-const th2 = document.createElement("th");
-const th3 = document.createElement("th");
 
 table.appendChild(thead);
 thead.appendChild(tr);
-tr.appendChild(th1)
-tr.appendChild(th2)
-tr.appendChild(th3)
 
-th1.innerText = "Szerzők";
-th2.innerText = "Korszak";
-th3.innerText = "Szerelmek";
-th3.colSpan = 2;
+createCell("th", "Szerzők", tr);
+createCell("th", "Korszak", tr);
+const builtDifferent1 = createCell("th", "Szerelmek", tr)
+
+builtDifferent1.colSpan = 2;
 
 //Tbody
 const tbody = document.createElement("tbody");
@@ -55,26 +50,16 @@ table.appendChild(tbody)
 
 for(let i = 0; i < arr.length; i++){
     const tr = document.createElement("tr");
-    
-    const td1 = document.createElement("td");
-    const td2 = document.createElement("td");
-    const td3 = document.createElement("td");
 
-    td1.innerText = arr[i].author;
-    td2.innerText = arr[i].era;
-    td3.innerText = arr[i].love1;
-    
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tr.appendChild(td3);
+    createCell("td", arr[i].author, tr)
+    createCell("td", arr[i].era, tr)
+    const builtDifferent2 = createCell("td", arr[i].love1, tr)
 
     if(!arr[i].love2){
-        td3.colSpan = 2;
+        builtDifferent2.colSpan = 2;
     }
     else{
-        const td4 = document.createElement("td");
-        td4.innerText = arr[i].love2;
-        tr.appendChild(td4);
+        createCell("td", arr[i].love2, tr)
     }
 
     tbody.appendChild(tr);
@@ -85,9 +70,12 @@ for(let i = 0; i < arr.length; i++){
  * @param {string} cellType Lehet "th" vagy "td" 
  * @param {string} cellContent A cella tartalma
  * @param {HTMLTableRowElement} parentRow A sor amihez hozzáadunk
+ * 
+ * @returns {HTMLTableCellElement} //Visszatérünk a létrehozott cella elementtel, hogy később tudjuk módosítani a tulajdonságait
  */
 function createCell(cellType, cellContent, parentRow){
-    cella = document.createElement(cellType);
+    const cella = document.createElement(cellType);
     cella.innerText = cellContent;
     parentRow.appendChild(cella);
+    return cella;
 }
