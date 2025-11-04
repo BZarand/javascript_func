@@ -1,3 +1,5 @@
+//Table
+
 /**
  * @type {{author:string, era:string, love1:string, love2:string}[]}
  */
@@ -79,3 +81,51 @@ function createCell(cellType, cellContent, parentRow){
     parentRow.appendChild(cella);
     return cella;
 }
+
+
+//Form
+ 
+/**
+ *
+ * @param {HTMLFormElement} form - A form elem, amihez hozzáadjuk
+ * @param {string} id - Az input id-je és name-je
+ * @param {string} labelText - A label felirata
+ */
+function createField(form, id, labelText) {
+    const label = document.createElement("label");
+    label.htmlFor = id;
+    label.innerText = labelText;
+    form.appendChild(label);
+    form.appendChild(document.createElement("br"));
+ 
+    const input = document.createElement("input");
+    input.type = "text";
+    input.id = id;
+    input.name = id;
+    form.appendChild(input);
+    form.appendChild(document.createElement("br"));
+    form.appendChild(document.createElement("br"));
+}
+ 
+// ─────────────── Form létrehozása ───────────────
+const form = document.createElement("form");
+form.id = "form_js";
+ 
+// Címsor (az első label elé kerül)
+const h2 = document.createElement("h2");
+h2.innerText = "Javascript form";
+form.appendChild(h2);
+ 
+// Mezők létrehozása segédfüggvénnyel
+createField(form, "kolto_nev", "Költő neve:");
+createField(form, "korszak", "Korszak:");
+createField(form, "szerelem1", "Szerelme:");
+createField(form, "szerelem2", "Szerelme:");
+ 
+// Gomb hozzáadása
+const button = document.createElement("button");
+button.innerText = "Hozzáadás";
+form.appendChild(button);
+ 
+// Az egészet a dokumentumhoz adjuk
+document.body.appendChild(form);
