@@ -1,5 +1,5 @@
 /**
- * @type {{war:string, team1:string, team1Size:string, team2?:string, team2Size?:string}}
+ * @type {{war:string, team1:string, team1Size:string, team2?:string, team2Size?:string}[]}
  */
 const arr = [
     {
