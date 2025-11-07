@@ -1,3 +1,5 @@
+//Table
+
 /**
  * @type {{nationality:string, name1:string, work1:string, name2?:string, work2?:string}}
  */
@@ -59,6 +61,14 @@ for(const obj of arr){
     tr.appendChild(td3);
 
     td1.innerText = obj.nationality;
+    /**
+     * @type {HTMLTableCellElement}
+     */
+    td1.addEventListener("click", function (e){
+        const target = e.target;
+        target.classList.add("marked");
+    })
+
     td2.innerText = obj.name1;
     td3.innerText = obj.work1;
 
@@ -77,3 +87,70 @@ for(const obj of arr){
         td5.innerText = obj.work2;
     }
 }
+
+
+//Form
+
+/**
+ * @type {HTMLFormElement}
+ */
+const bicus = document.getElementById("htmlform");
+bicus.addEventListener("submit", 
+    function (e){
+        e.preventDefault();
+        /**
+         * @type {HTMLFormElement}
+         */
+        const brbr = e.target;
+
+
+        /**
+         * @type {HTMLInputElement}
+         */
+        const nemzetiseg = brbr.querySelector("#nemzetiseg");
+        /**
+         * @type {string}
+         */
+        const nemzetisegValue = nemzetiseg.value;
+
+        /**
+         * @type {HTMLInputElement}
+         */
+        const szerzo1 = brbr.querySelector("#szerzo1");
+        /**
+         * @type {string}
+         */
+        const szerzo1Value = szerzo1.value;
+
+        /**
+         * @type {HTMLInputElement}
+         */
+        const mu1 = brbr.querySelector("#mu1");
+        /**
+         * @type {string}
+         */
+        const mu1Value = mu1.value;
+
+        /**
+         * @type {HTMLInputElement}
+         */
+        const szerzo2 = brbr.querySelector("#szerzo2");
+        /**
+         * @type {string}
+         */
+        const szerzo2Value = szerzo2.value;
+
+        /**
+         * @type {HTMLInputElement}
+         */
+        const mu2 = brbr.querySelector("#mu2");
+        /**
+         * @type {string}
+         */
+        const mu2Value = mu2.value;
+
+        /**
+         * @type {{nationality:string, name1:string, work1:string, name2?:string, work2?:string}}
+         */
+        const obj = {};-
+})
