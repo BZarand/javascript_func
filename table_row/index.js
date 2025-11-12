@@ -1,5 +1,5 @@
 //Table
-
+ 
 /**
  * @type {{nationality:string, name1:string, work1:string, name2?:string, work2?:string}[]}
  */
@@ -29,81 +29,103 @@ const arr = [
         work1: 'A fizikusok',
     }
 ]
-
+ 
 const table = document.createElement("table");
 document.body.appendChild(table);
-
+ 
 const tomb = ["Nemzetiség", "Szerző", "Mű"];
-
+ 
 const thead = document.createElement("thead");
 const tr = document.createElement("tr");
 table.appendChild(thead);
 thead.appendChild(tr);
-
+ 
 for(const item of tomb){
     const th = document.createElement("th");
     tr.appendChild(th);
     th.innerText = item;
 }
-
+ 
 const tbody = document.createElement("tbody");
+tbody.id = "tbody";
 table.appendChild(tbody);
-for(const obj of arr){
-    const tr = document.createElement("tr");
-    tbody.appendChild(tr);
-
-    const td1 = document.createElement("td");
-    const td2 = document.createElement("td");
-    const td3 = document.createElement("td");
-
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tr.appendChild(td3);
-
-    td1.innerText = obj.nationality;
-    /**
-     * @type {HTMLTableCellElement}
-     */
-    td1.addEventListener("click", function (e){
-        const target = e.target;
-        target.classList.add("marked");
-    })
-
-    td2.innerText = obj.name1;
-    td3.innerText = obj.work1;
-
-    if(obj.name2){
-        td1.rowSpan = "2";
-
+ 
+/**
+ * @param {{nationality:string, name1:string, work1:string, name2?:string, work2?:string}[]}
+ */
+function renderTableBody(array){
+    const tbodyCsere = document.getElementById("tbody");
+    tbody.innerHTML = "";
+ 
+    for(const obj of array){
         const tr = document.createElement("tr");
-        tbody.appendChild(tr);
-
-        const td4 = document.createElement("td");
-        tr.appendChild(td4);
-        td4.innerText = obj.name2;
-
-        const td5 = document.createElement("td");
-        tr.appendChild(td5);
-        td5.innerText = obj.work2;
+        tbodyCsere.appendChild(tr);
+   
+        const td1 = document.createElement("td");
+        const td2 = document.createElement("td");
+        const td3 = document.createElement("td");
+   
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+   
+   
+        td1.innerText = obj.nationality;
+        /**
+         * @type {HTMLTableCellElement}
+         */
+        td1.addEventListener("click", function (e){
+            const target = e.target;
+            const parentRow = target.parentElement;
+            const tbodyOrigin = parentRow.parentElement;
+   
+            const markedCell = tbodyOrigin.querySelector(".marked");
+   
+            if (markedCell !== null) {
+                markedCell.classList.remove("marked");
+            }
+            target.classList.add("marked");
+        })
+   
+        td2.innerText = obj.name1;
+        td3.innerText = obj.work1;
+   
+   
+        if(obj.name2){
+            td1.rowSpan = "2";
+   
+            const tr = document.createElement("tr");
+            tbodyCsere.appendChild(tr);
+   
+            const td4 = document.createElement("td");
+            tr.appendChild(td4);
+            td4.innerText = obj.name2;
+   
+            const td5 = document.createElement("td");
+            tr.appendChild(td5);
+            td5.innerText = obj.work2;
+        }
     }
 }
-
-
+renderTableBody(arr);
+ 
+ 
 //Form
-
+ 
 /**
  * @type {HTMLFormElement}
  */
-const bicus = document.getElementById("htmlform");
-bicus.addEventListener("submit", 
+const js_form = document.getElementById("htmlform");
+js_form.addEventListener("submit",
     function (e){
         e.preventDefault();
+ 
         /**
          * @type {HTMLFormElement}
          */
         const brbr = e.target;
-
-
+ 
+ 
         /**
          * @type {HTMLInputElement}
          */
@@ -112,7 +134,7 @@ bicus.addEventListener("submit",
          * @type {string}
          */
         const nemzetisegValue = nemzetiseg.value;
-
+ 
         /**
          * @type {HTMLInputElement}
          */
@@ -121,7 +143,7 @@ bicus.addEventListener("submit",
          * @type {string}
          */
         const szerzo1Value = szerzo1.value;
-
+ 
         /**
          * @type {HTMLInputElement}
          */
@@ -130,7 +152,7 @@ bicus.addEventListener("submit",
          * @type {string}
          */
         const mu1Value = mu1.value;
-
+ 
         /**
          * @type {HTMLInputElement}
          */
@@ -139,7 +161,7 @@ bicus.addEventListener("submit",
          * @type {string}
          */
         const szerzo2Value = szerzo2.value;
-
+ 
         /**
          * @type {HTMLInputElement}
          */
@@ -148,7 +170,7 @@ bicus.addEventListener("submit",
          * @type {string}
          */
         const mu2Value = mu2.value;
-
+ 
         /**
          * @type {{nationality:string, name1:string, work1:string, name2?:string, work2?:string}}
          */
@@ -158,21 +180,21 @@ bicus.addEventListener("submit",
         obj.work1 = mu1Value;
         obj.name2 = szerzo2Value;
         obj.work2 = mu2Value;
-
+ 
         const povmat = document.getElementById("matung");
-        
-
+       
+ 
         const tr = document.createElement("tr");
         povmat.appendChild(tr);
-
+ 
         const td1 = document.createElement("td");
         const td2 = document.createElement("td");
         const td3 = document.createElement("td");
-
+ 
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
-
+ 
         td1.innerText = obj.nationality;
         /**
         * @type {HTMLTableCellElement}
@@ -181,22 +203,94 @@ bicus.addEventListener("submit",
             const target = e.target;
             target.classList.add("marked");
         })
-
+ 
         td2.innerText = obj.name1;
         td3.innerText = obj.work1;
-
+ 
         if(obj.name2){
             td1.rowSpan = "2";
-
+ 
             const tr = document.createElement("tr");
             povmat.appendChild(tr);
-
+ 
             const td4 = document.createElement("td");
             tr.appendChild(td4);
             td4.innerText = obj.name2;
-
+ 
             const td5 = document.createElement("td");
             tr.appendChild(td5);
             td5.innerText = obj.work2;
+        }
     }
-})
+)
+ 
+ 
+js_form.addEventListener("submit",
+    function (e){
+        e.preventDefault();
+ 
+        /**
+         * @type {HTMLFormElement}
+         */
+        const brbr = e.target;
+ 
+ 
+        /**
+         * @type {HTMLInputElement}
+         */
+        const nemzetiseg = brbr.querySelector("#nemzetiseg");
+        /**
+         * @type {string}
+         */
+        const nemzetisegValue = nemzetiseg.value;
+ 
+        /**
+         * @type {HTMLInputElement}
+         */
+        const szerzo1 = brbr.querySelector("#szerzo1");
+        /**
+         * @type {string}
+         */
+        const szerzo1Value = szerzo1.value;
+ 
+        /**
+         * @type {HTMLInputElement}
+         */
+        const mu1 = brbr.querySelector("#mu1");
+        /**
+         * @type {string}
+         */
+        const mu1Value = mu1.value;
+ 
+        /**
+         * @type {HTMLInputElement}
+         */
+        const szerzo2 = brbr.querySelector("#szerzo2");
+        /**
+         * @type {string}
+         */
+        const szerzo2Value = szerzo2.value;
+ 
+        /**
+         * @type {HTMLInputElement}
+         */
+        const mu2 = brbr.querySelector("#mu2");
+        /**
+         * @type {string}
+         */
+        const mu2Value = mu2.value;
+ 
+        /**
+         * @type {{nationality:string, name1:string, work1:string, name2?:string, work2?:string}}
+         */
+        const obj = {};
+        obj.nationality = nemzetisegValue;
+        obj.name1 = szerzo1Value;
+        obj.work1 = mu1Value;
+        obj.name2 = szerzo2Value;
+        obj.work2 = mu2Value;
+ 
+        arr.push(obj);
+        renderTableBody(arr)
+    }
+)
