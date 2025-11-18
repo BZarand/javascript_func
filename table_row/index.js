@@ -1,3 +1,26 @@
+//Globális objektum
+
+/**
+ * @typedef {{id: string, label: string}} FormField
+ */
+const globalObj = {
+    /**
+     * @type {string[]}
+     */
+    headerTomb : ["Nemzetiség", "Szerző", "Mű"],
+    /**
+     * @type {FormField[]}
+     */
+    formTomb : [
+        {id : "nemzetiseg", label : "Nemzetiség"},
+        {id : "szerzo1", label : "Szerző"},
+        {id : "mu1", label : "Mű"},
+        {id : "szerzo2", label : "Másik szerző"},
+        {id : "mu2", label : "Mű"}
+    ]
+}
+
+
 //Table
  
 /**
@@ -29,19 +52,14 @@ const arr = [
         work1: 'A fizikusok',
     }
 ]
- 
-const table = document.createElement("table");
-document.body.appendChild(table);
- 
-const tomb = ["Nemzetiség", "Szerző", "Mű"];
- 
-generateHeader(table, tomb);
- 
-const tbody = document.createElement("tbody");
-tbody.id = "tbody";
-table.appendChild(tbody);
- 
+
+/**
+ * @type {string[]}
+ */
+generateTable(globalObj.headerTomb, "tbody");
+
 renderTableBody(arr);
+
 
 //Html Form
  
@@ -49,25 +67,15 @@ renderTableBody(arr);
  * @type {HTMLFormElement}
  */
 const bicus = document.getElementById("htmlform");
-bicus.addEventListener("submit", htmlEvenListener)
+bicus.addEventListener("submit", htmlEventListener)
  
 
-//Js Form
+// Javascript Form
 
-const form = document.createElement("form");
-form.id = "js_form";
 
-createField(form, "nemzetiseg", "Nemzetiség:");
-createField(form, "szerzo1", "Szerző:");
-createField(form, "mu1", "Mű:");
-createField(form, "szerzo2", "Másik szerző:");
-createField(form, "mu2", "Mű:");
+const js_form = createForm("js_form", globalObj.formTomb)
 
-const button = document.createElement("button");
-button.innerText = "Hozzáadás";
-form.appendChild(button);
-
-document.body.appendChild(form);
+document.body.appendChild(js_form);
  
 js_form.addEventListener("submit",
     function (e){
@@ -78,64 +86,79 @@ js_form.addEventListener("submit",
          */
         const brbr = e.target;
  
- 
+
         /**
          * @type {HTMLInputElement}
          */
         const nemzetiseg = brbr.querySelector("#nemzetiseg");
-        /**
-         * @type {string}
-         */
-        const nemzetisegValue = nemzetiseg.value;
- 
+        
         /**
          * @type {HTMLInputElement}
          */
         const szerzo1 = brbr.querySelector("#szerzo1");
-        /**
-         * @type {string}
-         */
-        const szerzo1Value = szerzo1.value;
- 
+
         /**
          * @type {HTMLInputElement}
          */
         const mu1 = brbr.querySelector("#mu1");
-        /**
-         * @type {string}
-         */
-        const mu1Value = mu1.value;
- 
+        
         /**
          * @type {HTMLInputElement}
          */
         const szerzo2 = brbr.querySelector("#szerzo2");
-        /**
-         * @type {string}
-         */
-        const szerzo2Value = szerzo2.value;
- 
+
         /**
          * @type {HTMLInputElement}
          */
         const mu2 = brbr.querySelector("#mu2");
-        /**
-         * @type {string}
-         */
-        const mu2Value = mu2.value;
- 
-        /**
-         * @type {CountryWriters}
-         */
-        const obj = {};
-        obj.nationality = nemzetisegValue;
-        obj.name1 = szerzo1Value;
-        obj.work1 = mu1Value;
-        obj.name2 = szerzo2Value;
-        obj.work2 = mu2Value;
- 
-        arr.push(obj);
-        renderTableBody(arr)
+
+
+        if(validateFields(nemzetiseg, szerzo1, mu1)){
+            
+            /**
+             * @type {string}
+             */
+            const nemzetisegValue = nemzetiseg.value;
+            
+            /**
+             * @type {string}
+             */
+            const szerzo1Value = szerzo1.value;
+    
+            /**
+             * @type {string}
+             */
+            const mu1Value = mu1.value;
+    
+            /**
+             * @type {string}
+             */
+            const szerzo2Value = szerzo2.value;
+    
+            /**
+             * @type {string}
+             */
+            const mu2Value = mu2.value;
+
+            
+            /**
+             * @type {CountryWriters}
+             */
+            const obj = {};
+            obj.nationality = nemzetisegValue;
+            obj.name1 = szerzo1Value;
+            obj.work1 = mu1Value;
+            obj.name2 = szerzo2Value !== "" ? szerzo2Value : undefined;
+            obj.work2 = mu2Value !== "" ? mu2Value : undefined;
+
+            arr.push(obj);
+            renderTableBody(arr)
+
+            js_form.reset();
+        }
+
+        for (const item of arr){
+            console.log(item.nationality, item.name1, item.work1, item.name2, item.work2);
+        }
     }
 )
-
