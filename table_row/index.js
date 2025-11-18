@@ -1,8 +1,9 @@
-//Globális objektum
-
 /**
  * @typedef {{id: string, label: string}} FormField
  */
+
+//Globális objektum
+
 const globalObj = {
     /**
      * @type {string[]}
@@ -113,7 +114,7 @@ js_form.addEventListener("submit",
         const mu2 = brbr.querySelector("#mu2");
 
 
-        if(validateFields(nemzetiseg, szerzo1, mu1)){
+        if(validateFields(nemzetiseg, szerzo1, mu1, "js_form")){
             
             /**
              * @type {string}

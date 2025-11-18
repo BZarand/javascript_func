@@ -30,6 +30,7 @@ function createField(form, id, labelText) {
 
     form.appendChild(div);
 
+    div.appendChild(document.createElement("br"));
     const span = document.createElement("span");
     span.classList.add("error");
 
@@ -158,7 +159,7 @@ function htmlEventListener(e){
     const mu2 = brbr.querySelector("#mu2");
 
 
-    if(validateFields(nemzetiseg, szerzo1, mu1)){
+    if(validateFields(nemzetiseg, szerzo1, mu1, "htmlform")){
         
         /**
          * @type {string}
@@ -251,18 +252,18 @@ function generateTable(tomb, tbodyId){
  * @param {HTMLInputElement} input1 
  * @param {HTMLInputElement} input2 
  * @param {HTMLInputElement} input3
+ * @param {string} formId 
  * 
  * @returns {boolean} 
  */
-function validateFields(input1, input2, input3){
+function validateFields(input1, input2, input3, formId){
     let boolean = true;
 
-    const jsform = document.getElementById("js_form");
-    const lista = jsform.querySelectorAll(".error");
+    const form = document.getElementById(formId);
+    const lista = form.querySelectorAll(".error");
     for (const item of lista){
         item.innerText = "";
     }
-
 
     if(input1.value == ""){
         const div = input1.parentElement;
